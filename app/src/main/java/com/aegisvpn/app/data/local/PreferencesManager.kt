@@ -15,6 +15,9 @@ class PreferencesManager(context: Context) {
         private const val KEY_IPV6_LEAK_PROTECT = "ipv6_leak_protect_enabled"
         private const val KEY_DNS_PROVIDER = "selected_dns_provider"
         private const val KEY_LAST_SERVER_IP = "last_selected_server_ip"
+        private const val KEY_WARP_PRIVATE_KEY = "warp_private_key"
+        private const val KEY_WARP_ADDRESS_V4 = "warp_address_v4"
+        private const val KEY_WARP_ADDRESS_V6 = "warp_address_v6"
 
         const val DNS_CLOUDFLARE = "1.1.1.1"
         const val DNS_GOOGLE = "8.8.8.8"
@@ -40,4 +43,16 @@ class PreferencesManager(context: Context) {
     var lastSelectedServerIp: String?
         get() = prefs.getString(KEY_LAST_SERVER_IP, null)
         set(value) = prefs.edit().putString(KEY_LAST_SERVER_IP, value).apply()
+
+    var warpPrivateKey: String?
+        get() = prefs.getString(KEY_WARP_PRIVATE_KEY, null)
+        set(value) = prefs.edit().putString(KEY_WARP_PRIVATE_KEY, value).apply()
+
+    var warpAddressV4: String
+        get() = prefs.getString(KEY_WARP_ADDRESS_V4, "172.16.0.2") ?: "172.16.0.2"
+        set(value) = prefs.edit().putString(KEY_WARP_ADDRESS_V4, value).apply()
+
+    var warpAddressV6: String?
+        get() = prefs.getString(KEY_WARP_ADDRESS_V6, null)
+        set(value) = prefs.edit().putString(KEY_WARP_ADDRESS_V6, value).apply()
 }

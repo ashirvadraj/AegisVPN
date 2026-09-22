@@ -33,19 +33,7 @@
             </intent-filter>
         </activity>
 
-        <!-- Native VPN Service with Kill Switch and DNS/IPv6 Leak Protection -->
-        <service
-            android:name=".core.AegisVpnService"
-            android:permission="android.permission.BIND_VPN_SERVICE"
-            android:foregroundServiceType="specialUse"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.net.VpnService" />
-            </intent-filter>
-            <property
-                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-                android:value="Encrypted VPN tunnel and DNS leak protection service" />
-        </service>
+        <!-- WireGuard VpnService provided by wireguard-android AAR -->
 
     </application>
 
