@@ -33,8 +33,7 @@
             </intent-filter>
         </activity>
 
-        <!-- WireGuard VpnService provided by wireguard-android AAR -->
-
+        <!-- WireGuard and OpenVPN VpnServices automatically merged from respective AARs -->
     </application>
 
 </manifest>

@@ -6,6 +6,19 @@ object DefaultServers {
 
     val FALLBACK_SERVERS = listOf(
         VpnServer(
+            hostName = "jp-tokyo.opengw.net",
+            ip = "219.100.37.161",
+            score = 1000000,
+            pingMs = 11,
+            speedBps = 1_641_000_000L,
+            countryLong = "Japan (Tokyo University - Unblock)",
+            countryShort = "JP",
+            sessions = 180,
+            port = 443,
+            protocol = "openvpn",
+            isPreset = true
+        ),
+        VpnServer(
             hostName = "fastest.anycast.cloudflareclient.com",
             ip = "162.159.192.1",
             score = 999999,
@@ -15,6 +28,7 @@ object DefaultServers {
             countryShort = "US",
             sessions = 120,
             port = 2408,
+            protocol = "wireguard",
             isPreset = true
         ),
         VpnServer(
@@ -27,6 +41,7 @@ object DefaultServers {
             countryShort = "US",
             sessions = 95,
             port = 2408,
+            protocol = "wireguard",
             isPreset = true
         ),
         VpnServer(
@@ -39,6 +54,7 @@ object DefaultServers {
             countryShort = "DE",
             sessions = 84,
             port = 2408,
+            protocol = "wireguard",
             isPreset = true
         ),
         VpnServer(
@@ -51,18 +67,7 @@ object DefaultServers {
             countryShort = "GB",
             sessions = 78,
             port = 2408,
-            isPreset = true
-        ),
-        VpnServer(
-            hostName = "jp-tokyo.cloudflareclient.com",
-            ip = "162.159.192.3",
-            score = 950000,
-            pingMs = 35,
-            speedBps = 115_000_000L,
-            countryLong = "Japan",
-            countryShort = "JP",
-            sessions = 89,
-            port = 2408,
+            protocol = "wireguard",
             isPreset = true
         ),
         VpnServer(
@@ -75,6 +80,7 @@ object DefaultServers {
             countryShort = "SG",
             sessions = 62,
             port = 2408,
+            protocol = "wireguard",
             isPreset = true
         ),
         VpnServer(
@@ -87,6 +93,7 @@ object DefaultServers {
             countryShort = "CA",
             sessions = 58,
             port = 2408,
+            protocol = "wireguard",
             isPreset = true
         ),
         VpnServer(
@@ -99,6 +106,7 @@ object DefaultServers {
             countryShort = "NL",
             sessions = 71,
             port = 2408,
+            protocol = "wireguard",
             isPreset = true
         ),
         VpnServer(
@@ -111,6 +119,7 @@ object DefaultServers {
             countryShort = "FR",
             sessions = 65,
             port = 2408,
+            protocol = "wireguard",
             isPreset = true
         ),
         VpnServer(
@@ -123,6 +132,7 @@ object DefaultServers {
             countryShort = "AU",
             sessions = 45,
             port = 2408,
+            protocol = "wireguard",
             isPreset = true
         ),
         VpnServer(
@@ -135,6 +145,7 @@ object DefaultServers {
             countryShort = "IN",
             sessions = 90,
             port = 2408,
+            protocol = "wireguard",
             isPreset = true
         )
     )

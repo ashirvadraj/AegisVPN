@@ -1,5 +1,6 @@
 package com.aegisvpn.app
 
+import com.aegisvpn.app.core.AegisOpenVpnParser
 import com.aegisvpn.app.data.local.PreferencesManager
 import com.wireguard.config.Config
 import com.wireguard.config.InetEndpoint
@@ -47,5 +48,46 @@ class SecurityConfigTest {
 
         assertNotNull(config)
         assertEquals(1, config.peers.size)
+    }
+
+    @Test
+    fun testAegisOpenVpnParser() {
+        val sampleConfig = """
+            client
+            dev tun
+            proto udp
+            remote 219.100.37.161 1194
+            cipher AES-128-CBC
+            auth SHA1
+            resolv-retry infinite
+            nobind
+            <ca>
+            -----BEGIN CERTIFICATE-----
+            MIIF...
+            -----END CERTIFICATE-----
+            </ca>
+            <cert>
+            -----BEGIN CERTIFICATE-----
+            MIIC...
+            -----END CERTIFICATE-----
+            </cert>
+            <key>
+            -----BEGIN RSA PRIVATE KEY-----
+            MIIE...
+            -----END RSA PRIVATE KEY-----
+            </key>
+        """.trimIndent()
+
+        val parsed = AegisOpenVpnParser.parse(sampleConfig, "Tokyo Test")
+        assertNotNull(parsed)
+        assertEquals("219.100.37.161", parsed.host)
+        assertEquals(1194, parsed.port)
+        assertEquals("udp", parsed.type)
+        assertEquals("AES-128-CBC", parsed.cipher)
+        assertEquals("SHA1", parsed.auth)
+        assertTrue(parsed.ca?.contains("MIIF") == true)
+        assertTrue(parsed.cert?.contains("MIIC") == true)
+        assertTrue(parsed.key?.contains("MIIE") == true)
+        assertNull(parsed.tlsCrypt)
     }
 }
