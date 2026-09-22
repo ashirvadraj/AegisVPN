@@ -66,6 +66,8 @@ object AegisOpenVpnParser {
             tlsCrypt = tlsCryptMatcher.group(1)?.trim()
         }
 
+        val sanitizedConfig = ovpnContent.replace("resolv-retry infinite", "resolv-retry 60")
+
         return OpenVPNConfig(
             name = serverName,
             host = host,
@@ -77,7 +79,7 @@ object AegisOpenVpnParser {
             key = key,
             cert = cert,
             tlsCrypt = tlsCrypt,
-            configuration = ovpnContent
+            configuration = sanitizedConfig
         )
     }
 }

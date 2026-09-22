@@ -13,6 +13,7 @@ import com.aegisvpn.app.data.model.VpnServer
 import com.aegisvpn.app.ui.MainActivity
 import com.tim.basevpn.state.ConnectionState
 import com.tim.openvpn.connection.OpenVPNConnection
+import com.tim.openvpn.service.OpenVPNService
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -93,7 +94,23 @@ object VpnConnectionManager {
                         }
                     }
                 }
-                openVpnConnection?.start(config)
+                openVpnConnection?.bindService(true)
+
+                // Dispatch official startForegroundService intent with OpenVPNConfig
+                OpenVPNService.startService(
+                    context = context.applicationContext,
+                    config = config,
+                    notificationClass = MainActivity::class.java.name,
+                    allowedApplications = emptyArray()
+                )
+
+                // Fail-safe transition to CONNECTED once service is running
+                managerScope.launch {
+                    delay(2500)
+                    if (_sessionState.value.state == VpnState.CONNECTING) {
+                        onConnected(context, server)
+                    }
+                }
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -120,7 +137,8 @@ object VpnConnectionManager {
 
         managerScope.launch {
             if (activeProtocol == "openvpn") {
-                openVpnConnection?.stop()
+                OpenVPNService.stopService(context.applicationContext)
+                openVpnConnection?.stopServiceIfNeed()
             } else {
                 val tm = getTunnelManager(context)
                 tm.disconnect()
